@@ -7,10 +7,11 @@ public class Main {
 
 
         User[] players = DataUser.playersData();
-        PlayGame.printBoards(DataUser.boardDimensions());
+        char[][] board = DataUser.boardDimensions();
+        System.out.println(players[0].getUsername()+" będzie grał figurą "+ players[0].getX());
+        System.out.println(players[1].getUsername()+" będzie grał figurą "+ players[1].getX());
+        PlayGame.checkBox(board,players[0]);
 
-        System.out.println(players[0].getUsername()+" "+ players[0].getX());
-        System.out.println(players[1].getUsername()+" "+ players[1].getX());
     }
 
 

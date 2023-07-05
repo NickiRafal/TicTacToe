@@ -1,24 +1,44 @@
 package com.kodilla;
 
+import java.util.Scanner;
+
 public class PlayGame {
 
 
-    public static int printBoards(char[][] plansza){
+    public static int printBoards(char[][] board){
 
-        int wymiar = plansza.length;
+        int dimension = board.length;
         System.out.print("\t");
-        for (int i = 0;i <wymiar;i++){
+        for (int i = 0;i <dimension;i++){
             System.out.print(i+"\t");
         }
         System.out.println();
-        for (int wiersz = 0; wiersz< plansza.length;wiersz++){
-            System.out.print(wiersz+" |\t");
-            for (int kolumna = 0;kolumna < plansza[wiersz].length;kolumna++){
-                System.out.print(plansza[wiersz][kolumna]+"\t");
+        for (int row = 0; row< board.length;row++){
+            System.out.print(row+" |\t");
+            for (int column = 0;column < board[row].length;column++){
+                System.out.print(board[row][column]+"\t");
 
             }System.out.println();
 
         }
-        return wymiar;
+        return dimension;
     }
+    public static void checkBox(char[][] board, User user) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj index wiersza");
+        int rows = scanner.nextInt();
+        System.out.println("Podaj index kolumny");
+        int column = scanner.nextInt();
+        scanner.nextLine();
+
+        if (rows >= 0 && rows < board.length && column >= 0 && column < board[0].length) {
+            board[rows][column] = user.getX(); // Ustawienie figury gracza w podanym indeksie
+            System.out.println("Plansza po ustawieniu figury:");
+            printBoards(board); // Wydrukowanie planszy z figurą gracza w podanym indeksie
+        } else {
+            System.out.println("Nieprawidłowy indeks wiersza lub kolumny.");
+        }
+    }
+
+
 }
