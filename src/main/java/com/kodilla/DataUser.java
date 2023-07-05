@@ -5,14 +5,12 @@ import java.util.Scanner;
 public class DataUser {
 
     public static User[] playersData(){
+        Scanner scanner = new Scanner(System.in);
         User[] players = new User[2];
         System.out.println("Podaj imię pierwszego gracza ");
-
         String user1 = new Scanner(System.in).nextLine();
         System.out.println("Podaj jaką figurą chcesz grać Kółko wciśnij o , Krzyżyk wciśnij x");
         char figure1 = new Scanner(System.in).next().charAt(0);
-        //usuwanie enter z pamięci
-        new Scanner(System.in).nextLine();
         players[0] = new User(user1,figure1);
         char figure2;
         if(players[0].getX()=='x'){
