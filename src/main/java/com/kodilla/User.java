@@ -3,20 +3,21 @@ package com.kodilla;
 import java.util.Objects;
 
 public class User {
-    private String username;
-    private char X;
+    private final String username;
+    private final char figure;
 
-    public User(String username, char x) {
+    public User(String username, char figure) {
         this.username = username;
-        X = x;
+        this.figure = figure;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public char getX() {
-        return X;
+
+    public char getFigure() {
+        return figure;
     }
 
     @Override
@@ -24,19 +25,19 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return X == user.X && Objects.equals(username, user.username);
+        return figure == user.figure && Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, X);
+        return Objects.hash(username, figure);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", X=" + X +
+                ", figure=" + figure +
                 '}';
     }
 }
