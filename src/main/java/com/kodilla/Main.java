@@ -1,62 +1,82 @@
 package com.kodilla;
-
 import java.util.Scanner;
+
+import static com.kodilla.CheckingTheResults.checkGameResult;
 
 public class Main {
     public static void main(String[] args) {
+
+
         Scanner scanner = new Scanner(System.in);
-        //int select = InputFromTheKeyboard.SelectAGameType();
-        // Pobieranie danych graczy
-        User[] players = InputFromTheKeyboard.collectingDataFromPlayers(scanner);
+        //Wybór typu gry 2 graczy czy 1 gracz
+        int select = InputFromTheKeyboard.selectAGameType();
+        if (select == 2) {
+            // Pobieranie danych graczy
+            User[] players = InputFromTheKeyboard.collectingDataFromPlayers();
 
-        // Ustawianie planszy
-        char[][] board = InputFromTheKeyboard.boardDimensions(scanner);
+            // Ustawianie planszy
+            char[][] board = InputFromTheKeyboard.boardDimensions();
 
-        // Informacja o graczach
-        System.out.println(players[0].getUsername() + " będzie grał figurą " + players[0].getFigure());
-        System.out.println(players[1].getUsername() + " będzie grał figurą " + players[1].getFigure());
+            // Informacja o graczach
+            System.out.println(players[0].getUsername() + " będzie grał figurą " + players[0].getFigure());
+            System.out.println(players[1].getUsername() + " będzie grał figurą " + players[1].getFigure());
 
-        // Ustawianie figury na wybranym polu
-        int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
-        while (true) {
-            PlayGame.buildingTheBoard(board, players[currentPlayerIndex]); // Przekazanie aktualnego gracza jako argument
+            int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
-            if (CheckingTheResults.checkForXWinRow(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
-            }
-            if (CheckingTheResults.checkForXWinColumn(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
-            }
-            if (CheckingTheResults.checkForXWinDiagonal(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
+            while (true) {
+                // Ustawianie figury na wybranym polu
+                PlayGame.buildingTheBoard(board, players[currentPlayerIndex]);
+                //sprawdzanie wygranej
+                if (checkGameResult(board, players, currentPlayerIndex)) {
+                    break; // Zakończenie gry
+                }
+                // Zamiana graczy
+                currentPlayerIndex = (currentPlayerIndex + 1) % 2;
+
             }
 
-            if (CheckingTheResults.checkForOWinRow(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
-            }
-            if (CheckingTheResults.checkForOWinColumn(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
-            }
-            if (CheckingTheResults.checkForOWinDiagonal(board, players[currentPlayerIndex].getFigure())) {
-                System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-                break; // Zakończenie gry
+        } else {
+            // Pobieranie danych gracza
+            User player = InputFromTheKeyboard.collectingDataFromPlayer(scanner);
+
+            // Ustawianie planszy
+            char[][] board = InputFromTheKeyboard.boardDimensions();
+
+            int currentPlayerIndex = 0; // Indeks aktualnego gracza
+
+            while (true) {
+                // Ruch gracza
+                if (currentPlayerIndex == 0) {
+                    PlayGame.buildingTheBoard(board, player);
+                }
+
+                // Ruch komputera
+                if (currentPlayerIndex == 1) {
+                    Computer computerPlay = new Computer("Komputer", player.getComputer().getFigure());
+                    PlayGame.buildingTheBoardComputer(board, computerPlay);
+                }
+
+                // Wyświetlanie planszy po ruchu
+                //PlayGame.printBoard(board);
+
+                // Sprawdzanie warunków wygranej lub remisu
+                if (CheckingTheResults.checkForXWinRow(board, player.getFigure()) ||
+                        CheckingTheResults.checkForXWinColumn(board, player.getFigure()) ||
+                        CheckingTheResults.checkForXWinDiagonal(board, player.getFigure())) {
+                    System.out.println("Gracz " + player.getUsername() + " wygrał!");
+                    break; // Zakończenie gry
+                }
+
+                if (CheckingTheResults.checkForDraw(board)) {
+                    System.out.println("Gra zakończona remisem!");
+                    break; // Zakończenie gry
+                }
+
+                // Zamiana graczy
+                currentPlayerIndex = (currentPlayerIndex + 1) % 2;
             }
 
-            if (CheckingTheResults.checkForDraw(board)) {
-                System.out.println("Gra zakończona remisem!");
-                break; // Zakończenie gry
-            }
-
-            // Zamiana graczy
-            currentPlayerIndex = (currentPlayerIndex + 1) % 2;
         }
-
-        scanner.close();
     }
 }

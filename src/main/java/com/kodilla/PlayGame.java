@@ -1,5 +1,6 @@
 package com.kodilla;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class PlayGame {
@@ -23,11 +24,11 @@ public class PlayGame {
     }
 
     public static void buildingTheBoard(char[][] board, User user) {
-
+        Scanner scanner = new Scanner(System.in);
         System.out.println(user.getUsername() + ", podaj indeks wiersza: ");
-        int row = new Scanner(System.in).nextInt();
+        int row = scanner.nextInt();
         System.out.println(user.getUsername() + ", podaj indeks kolumny: ");
-        int column = new Scanner(System.in).nextInt();
+        int column = scanner.nextInt();
 
         if (row >= 0 && row < board.length && column >= 0 && column < board[row].length) {
             if (board[row][column] == '\u0000') {
@@ -40,6 +41,25 @@ public class PlayGame {
             }
         } else {
             System.out.println("Nieprawidłowy indeks wiersza lub kolumny.");
+        }
+    }
+
+    public static void buildingTheBoardComputer(char[][] board, Computer computer) {
+        while (true) {
+            //Losowanie liczb dla komputera
+            Random random = new Random();
+            int row = random.nextInt(3);
+            int column = random.nextInt(3);
+            // Sprawdzanie czy wylosowane indeksy są puste i wstawianie figury
+            if (row < board.length && column < board[row].length) {
+                if (board[row][column] == '\u0000') {
+                    board[row][column] = computer.getFigure();
+                    System.out.println("Plansza po ruchu Komputera:");
+                    printBoard(board);
+                    break;
+
+                }
+            }
         }
     }
 }
