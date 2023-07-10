@@ -1,7 +1,7 @@
 package com.kodilla;
 import java.util.Scanner;
-
-import static com.kodilla.CheckingTheResults.checkGameResult;
+import static com.kodilla.CheckingTheResults.checkGameResultPlayer;
+import static com.kodilla.CheckingTheResults.checkGameResultPlayers;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,14 +21,14 @@ public class Main {
             System.out.println(players[0].getUsername() + " będzie grał figurą " + players[0].getFigure());
             System.out.println(players[1].getUsername() + " będzie grał figurą " + players[1].getFigure());
 
-
+            PlayGame.printBoard(board);
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
             while (true) {
                 // Ustawianie figury na wybranym polu
                 PlayGame.buildingTheBoard(board, players[currentPlayerIndex]);
                 //sprawdzanie wygranej
-                if (checkGameResult(board, players, currentPlayerIndex)) {
+                if (checkGameResultPlayers(board, players, currentPlayerIndex)) {
                     break; // Zakończenie gry
                 }
                 // Zamiana graczy
@@ -42,6 +42,7 @@ public class Main {
 
             // Ustawianie planszy
             char[][] board = InputFromTheKeyboard.boardDimensions();
+                PlayGame.printBoard(board);
 
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
@@ -61,12 +62,10 @@ public class Main {
                 //PlayGame.printBoard(board);
 
                 // Sprawdzanie warunków wygranej lub remisu
-                if (CheckingTheResults.checkForXWinRow(board, player.getFigure()) ||
-                        CheckingTheResults.checkForXWinColumn(board, player.getFigure()) ||
-                        CheckingTheResults.checkForXWinDiagonal(board, player.getFigure())) {
-                    System.out.println("Gracz " + player.getUsername() + " wygrał!");
+                if (checkGameResultPlayer(board,player)) {
                     break; // Zakończenie gry
                 }
+
 
                 if (CheckingTheResults.checkForDraw(board)) {
                     System.out.println("Gra zakończona remisem!");

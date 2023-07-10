@@ -2,7 +2,6 @@ package com.kodilla;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import static java.lang.Character.toUpperCase;
 
 public class InputFromTheKeyboard {
@@ -100,11 +99,21 @@ public class InputFromTheKeyboard {
 
     public static char[][] boardDimensions() {
         // Funkcja pobierająca dane na temat ilości pól planszy
-        System.out.println("Podaj rozmiar planszy (format liczbowy): ");
-        int dimension = new Scanner(System.in).nextInt();
+        System.out.println("Czy czcesz zagrać w wariant klasyczny 3x3  ?/ wpisz 3  ");
+        System.out.println("Czy alternatywny 10x10 ?/ Wpisz 10");
+        int dimension;
+        while (true) {
+            dimension = new Scanner(System.in).nextInt();
+            if (dimension == 3 || dimension == 10) {
+               break;
+
+            } else {
+                System.out.println("Możesz wybrać 3 lub 10");
+            }
+        }
         char[][] board = new char[dimension][dimension];
         System.out.println("Rozpoczynamy grę");
-
-        return board;
+        return  board;
     }
+
 }

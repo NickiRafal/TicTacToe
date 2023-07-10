@@ -1,5 +1,4 @@
 package com.kodilla;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -33,7 +32,7 @@ public class PlayGame {
         if (row >= 0 && row < board.length && column >= 0 && column < board[row].length) {
             if (board[row][column] == '\u0000') {
                 board[row][column] = user.getFigure();
-                System.out.println("Plansza po ustawieniu figury:");
+                System.out.println("Plansza po ustawieniu figury przez grzcza :" + user.getUsername());
                 printBoard(board);
                 System.out.println(user.getUsername() + ", wykonałeś swój ruch. Teraz przeciwnik.");
             } else {
@@ -48,8 +47,9 @@ public class PlayGame {
         while (true) {
             //Losowanie liczb dla komputera
             Random random = new Random();
-            int row = random.nextInt(3);
-            int column = random.nextInt(3);
+            int auxiliaryVariable = board.length;
+            int row = random.nextInt(auxiliaryVariable);
+            int column = random.nextInt(auxiliaryVariable);
             // Sprawdzanie czy wylosowane indeksy są puste i wstawianie figury
             if (row < board.length && column < board[row].length) {
                 if (board[row][column] == '\u0000') {

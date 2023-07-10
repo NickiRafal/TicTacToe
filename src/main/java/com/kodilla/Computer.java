@@ -1,5 +1,4 @@
 package com.kodilla;
-
 import java.util.Objects;
 
 public class Computer {
