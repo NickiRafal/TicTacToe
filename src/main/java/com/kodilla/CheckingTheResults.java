@@ -1,8 +1,5 @@
 package com.kodilla;
 public class CheckingTheResults {
-    public static void targetAndCounter(){
-
-    }
 
     public static boolean checkForWinRow(char[][] board, char figure) {
         int boardSize = board.length;

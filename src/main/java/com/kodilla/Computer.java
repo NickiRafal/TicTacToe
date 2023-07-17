@@ -1,7 +1,6 @@
 package com.kodilla;
 import java.util.Objects;
 import java.util.Random;
-
 import static com.kodilla.Board.printBoard;
 
 public class Computer {
