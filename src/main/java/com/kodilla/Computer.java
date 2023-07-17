@@ -1,7 +1,7 @@
 package com.kodilla;
 import java.util.Objects;
 import java.util.Random;
-import static com.kodilla.Board.printBoard;
+
 
 public class Computer {
     private char figure;
@@ -40,6 +40,7 @@ public class Computer {
     }
 
     public static void buildingTheBoardComputer(char[][] board, Computer computer) {
+        Board board1 = new Board();
         while (true) {
             //Losowanie liczb dla komputera
             Random random = new Random();
@@ -51,7 +52,7 @@ public class Computer {
                 if (board[row][column] == '\u0000') {
                     board[row][column] = computer.getFigure();
                     System.out.println("Plansza po ruchu Komputera:");
-                    printBoard(board);
+                    board1.printBoard(board);
                     break;
 
                 }

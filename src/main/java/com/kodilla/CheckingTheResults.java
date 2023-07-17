@@ -1,6 +1,7 @@
 package com.kodilla;
 public class CheckingTheResults {
 
+
     public static boolean checkForWinRow(char[][] board, char figure) {
         int boardSize = board.length;
         int targetCounter;
@@ -80,19 +81,13 @@ public class CheckingTheResults {
 
         return false;
     }
-    public static boolean checkForDraw(char[][] board) {
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                // Jeżeli znajdziemy puste pole, to gra nie zakończyła się remisem
-                if (board[row][col] == '\u0000') {
-                    return false;
-                }
-            }
+    public static boolean checkForDraw(int counter , int board ) {
+        if (counter == board * board){
+            System.out.println("Nastgąpił remis tej gry");
+            return true;// Gra zakończona remis
         }
-        // Jeżeli przejdziemy przez wszystkie pola i nie znaleźliśmy pustego pola, to jest remis
-        return true;
+        return false;// Gra trwa
     }
-
 
     public static boolean checkGameResultPlayer(char[][] board, User player) {
         char currentPlayerFigure = player.getFigure();
@@ -102,13 +97,11 @@ public class CheckingTheResults {
                 || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)) {
             System.out.println("Gracz " + player.getUsername() + " wygrał!");
             return true; // Gra się zakończyła
-        }else if(CheckingTheResults.checkForDraw(board)){
-            System.out.println("Nastąpił remis");
-            return true;
         }
         return false; // Gra trwa
     }
     public static boolean checkGameResultComputer(char[][] board, Computer computer) {
+        int counter;
         char currentPlayerFigure = computer.getFigure();
 
         if (CheckingTheResults.checkForWinRow(board, currentPlayerFigure)
@@ -116,9 +109,6 @@ public class CheckingTheResults {
                 || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)) {
             System.out.println("Komputer  wygrał!");
             return true; // Gra się zakończyła
-        }else if(CheckingTheResults.checkForDraw(board)){
-            System.out.println("Nastąpił remis");
-            return true;
         }
         return false; // Gra trwa
     }

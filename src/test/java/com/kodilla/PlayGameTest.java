@@ -50,6 +50,7 @@ public class PlayGameTest {
 
     @Test       //Test dla remisu
     public void testCheckForDraw() {
+        int counter= 9;
         // Przygotowanie planszy prowadzącej do remisu
         char[][] board = {
                 {'X', 'O', 'X'},
@@ -58,7 +59,7 @@ public class PlayGameTest {
         };
 
         // Sprawdzenie, czy plansza prowadzi do remisu
-        assertTrue(CheckingTheResults.checkForDraw(board));
+        assertTrue(CheckingTheResults.checkForDraw(counter,board.length));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.kodilla;
 import java.util.Scanner;
-import static com.kodilla.CheckingTheResults.checkGameResultComputer;
-import static com.kodilla.CheckingTheResults.checkGameResultPlayer;
+
+import static com.kodilla.CheckingTheResults.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,20 +16,27 @@ public class Main {
             Board board = new Board();
             // Ustawianie planszy
             char[][] gameBoard = board.boardDimensions();
-
+            System.out.println("to jest gameboard"+gameBoard);
             // Informacja o graczach
             System.out.println(players[0].getUsername() + " będzie grał figurą " + players[0].getFigure());
             System.out.println(players[1].getUsername() + " będzie grał figurą " + players[1].getFigure());
 
             board.printBoard(gameBoard);
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
-
+            int counter = 0;
             while (true) {
+                counter ++;
                 // Ustawianie figury na wybranym polu
                 Board.buildingTheBoard(gameBoard, players[currentPlayerIndex]);
+
+
                 //sprawdzanie wygranej
                 if (checkGameResultPlayer(gameBoard,players[currentPlayerIndex])) {
+
                     break; // Zakończenie gry
+                }
+                if (checkForDraw(counter,gameBoard.length)){
+                    break; // Zkończenie , remis
                 }
                 // Zamiana graczy
                 currentPlayerIndex = (currentPlayerIndex + 1) % 2;
@@ -37,6 +44,7 @@ public class Main {
 
         } else {
             // Pobieranie danych gracza
+            int counter = 0;
             User player = InputFromTheKeyboard.collectingDataFromPlayer(scanner);
             Board board = new Board();
             // Ustawianie planszy
@@ -46,6 +54,7 @@ public class Main {
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
             while (true) {
+                counter++;
                 // Ruch gracza
                 if (currentPlayerIndex == 0) {
                     board.buildingTheBoard(gameBoard, player);
@@ -62,8 +71,7 @@ public class Main {
                     break; // Zakończenie gry
                 }
 
-                if (CheckingTheResults.checkForDraw(gameBoard)) {
-                    System.out.println("Gra zakończona remisem!");
+                if (CheckingTheResults.checkForDraw(counter,gameBoard.length)) {
                     break; // Zakończenie gry
                 }
 
