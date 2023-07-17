@@ -25,7 +25,7 @@ public class InputFromTheKeyboard {
     }
     public static User collectingDataFromPlayer(Scanner scanner) {
 
-        Computer computer = new Computer("Komputer", 'X');
+        Computer computer = new Computer('x');
 
         System.out.println("Podaj swoje imię");
 
@@ -38,7 +38,7 @@ public class InputFromTheKeyboard {
             System.out.println("Nieprawidłowy stan skanera. Sprawdź, czy strumień wejściowy jest prawidłowy.");
         }
 
-        char figure = ' ';
+        char figure =' ';
         System.out.println("Podaj figurę jaką chcesz grać z komputerem (do wyboru X lub O)");
         try {
             String input = scanner.nextLine();
@@ -67,7 +67,7 @@ public class InputFromTheKeyboard {
     }
 
     public static User[] collectingDataFromPlayers() {
-        Computer computer = new Computer("Komputer",'.');
+        Computer computer = new Computer('x');
         // Pobieranie danych od graczy
         User[] players = new User[2];
 
@@ -97,23 +97,6 @@ public class InputFromTheKeyboard {
         return players;
     }
 
-    public static char[][] boardDimensions() {
-        // Funkcja pobierająca dane na temat ilości pól planszy
-        System.out.println("Czy czcesz zagrać w wariant klasyczny 3x3  ?/ wpisz 3  ");
-        System.out.println("Czy alternatywny 10x10 ?/ Wpisz 10");
-        int dimension;
-        while (true) {
-            dimension = new Scanner(System.in).nextInt();
-            if (dimension == 3 || dimension == 10) {
-               break;
 
-            } else {
-                System.out.println("Możesz wybrać 3 lub 10");
-            }
-        }
-        char[][] board = new char[dimension][dimension];
-        System.out.println("Rozpoczynamy grę");
-        return  board;
-    }
 
 }

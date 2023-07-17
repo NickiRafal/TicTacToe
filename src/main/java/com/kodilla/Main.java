@@ -1,7 +1,7 @@
 package com.kodilla;
 import java.util.Scanner;
+import static com.kodilla.CheckingTheResults.checkGameResultComputer;
 import static com.kodilla.CheckingTheResults.checkGameResultPlayer;
-import static com.kodilla.CheckingTheResults.checkGameResultPlayers;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,61 +13,56 @@ public class Main {
         if (select == 2) {
             // Pobieranie danych graczy
             User[] players = InputFromTheKeyboard.collectingDataFromPlayers();
-
+            Board board = new Board();
             // Ustawianie planszy
-            char[][] board = InputFromTheKeyboard.boardDimensions();
+            char[][] gameBoard = board.boardDimensions();
 
             // Informacja o graczach
             System.out.println(players[0].getUsername() + " będzie grał figurą " + players[0].getFigure());
             System.out.println(players[1].getUsername() + " będzie grał figurą " + players[1].getFigure());
 
-            PlayGame.printBoard(board);
+            board.printBoard(gameBoard);
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
             while (true) {
                 // Ustawianie figury na wybranym polu
-                PlayGame.buildingTheBoard(board, players[currentPlayerIndex]);
+                Board.buildingTheBoard(gameBoard, players[currentPlayerIndex]);
                 //sprawdzanie wygranej
-                if (checkGameResultPlayers(board, players, currentPlayerIndex)) {
+                if (checkGameResultPlayer(gameBoard,players[currentPlayerIndex])) {
                     break; // Zakończenie gry
                 }
                 // Zamiana graczy
                 currentPlayerIndex = (currentPlayerIndex + 1) % 2;
-
             }
 
         } else {
             // Pobieranie danych gracza
             User player = InputFromTheKeyboard.collectingDataFromPlayer(scanner);
-
+            Board board = new Board();
             // Ustawianie planszy
-            char[][] board = InputFromTheKeyboard.boardDimensions();
-                PlayGame.printBoard(board);
+            char[][] gameBoard = board.boardDimensions();
+            board.printBoard(gameBoard);
 
             int currentPlayerIndex = 0; // Indeks aktualnego gracza
 
             while (true) {
                 // Ruch gracza
                 if (currentPlayerIndex == 0) {
-                    PlayGame.buildingTheBoard(board, player);
+                    board.buildingTheBoard(gameBoard, player);
                 }
-
+                Computer computerPlay = new Computer(player.getComputer().getFigure());
                 // Ruch komputera
                 if (currentPlayerIndex == 1) {
-                    Computer computerPlay = new Computer("Komputer", player.getComputer().getFigure());
-                    PlayGame.buildingTheBoardComputer(board, computerPlay);
+
+                    computerPlay.buildingTheBoardComputer(gameBoard, computerPlay);
                 }
 
-                // Wyświetlanie planszy po ruchu
-                //PlayGame.printBoard(board);
-
                 // Sprawdzanie warunków wygranej lub remisu
-                if (checkGameResultPlayer(board,player)) {
+                if (checkGameResultComputer(gameBoard,computerPlay)){
                     break; // Zakończenie gry
                 }
 
-
-                if (CheckingTheResults.checkForDraw(board)) {
+                if (CheckingTheResults.checkForDraw(gameBoard)) {
                     System.out.println("Gra zakończona remisem!");
                     break; // Zakończenie gry
                 }

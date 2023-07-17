@@ -1,8 +1,8 @@
 package com.kodilla;
-import java.util.Random;
+
 import java.util.Scanner;
 
-public class PlayGame {
+public class Board {
     public static void printBoard(char[][] board) {
         // Funkcja drukująca planszę
         int dimension = board.length;
@@ -42,24 +42,23 @@ public class PlayGame {
             System.out.println("Nieprawidłowy indeks wiersza lub kolumny.");
         }
     }
-
-    public static void buildingTheBoardComputer(char[][] board, Computer computer) {
+    public static char[][] boardDimensions() {
+        // Funkcja pobierająca dane na temat ilości pól planszy
+        System.out.println("Czy czcesz zagrać w wariant klasyczny 3x3  ?/ wpisz 3  ");
+        System.out.println("Czy alternatywny 10x10 ?/ Wpisz 10");
+        int dimension;
         while (true) {
-            //Losowanie liczb dla komputera
-            Random random = new Random();
-            int auxiliaryVariable = board.length;
-            int row = random.nextInt(auxiliaryVariable);
-            int column = random.nextInt(auxiliaryVariable);
-            // Sprawdzanie czy wylosowane indeksy są puste i wstawianie figury
-            if (row < board.length && column < board[row].length) {
-                if (board[row][column] == '\u0000') {
-                    board[row][column] = computer.getFigure();
-                    System.out.println("Plansza po ruchu Komputera:");
-                    printBoard(board);
-                    break;
+            dimension = new Scanner(System.in).nextInt();
+            if (dimension == 3 || dimension == 10) {
+                break;
 
-                }
+            } else {
+                System.out.println("Możesz wybrać 3 lub 10");
             }
         }
+        char[][] board = new char[dimension][dimension];
+        System.out.println("Rozpoczynamy grę");
+        return  board;
     }
+
 }

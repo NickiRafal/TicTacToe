@@ -88,7 +88,6 @@ public class CheckingTheResults {
             for (int col = 0; col < board[row].length; col++) {
                 // Jeżeli znajdziemy puste pole, to gra nie zakończyła się remisem
                 if (board[row][col] == '\u0000') {
-                    System.out.println("Remis");
                     return false;
                 }
             }
@@ -96,39 +95,33 @@ public class CheckingTheResults {
         // Jeżeli przejdziemy przez wszystkie pola i nie znaleźliśmy pustego pola, to jest remis
         return true;
     }
-//
 
-//    public static String getCurrentPlayerUsername(User[] players, char currentPlayerFigure) {
-//        for (User player : players) {
-//            if (player.getFigure() == currentPlayerFigure) {
-//                return player.getUsername();
-//            }
-//        }
-//        return "";
-//    }
 
-    // Metoda sprawdzająca wynik gry
-    public static boolean checkGameResultPlayers(char[][] board, User[] players, int currentPlayerIndex) {
-        char currentPlayerFigure = players[currentPlayerIndex].getFigure();
-
-        if (CheckingTheResults.checkForWinRow(board, currentPlayerFigure)
-                || CheckingTheResults.checkForWinColumn(board, currentPlayerFigure)
-                || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)
-                || CheckingTheResults.checkForDraw(board)) {
-            System.out.println("Gracz " + players[currentPlayerIndex].getUsername() + " wygrał!");
-            return true; // Gra się zakończyła
-        }
-        return false; // Gra trwa
-    }
     public static boolean checkGameResultPlayer(char[][] board, User player) {
         char currentPlayerFigure = player.getFigure();
 
         if (CheckingTheResults.checkForWinRow(board, currentPlayerFigure)
                 || CheckingTheResults.checkForWinColumn(board, currentPlayerFigure)
-                || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)
-                || CheckingTheResults.checkForDraw(board)) {
+                || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)) {
             System.out.println("Gracz " + player.getUsername() + " wygrał!");
             return true; // Gra się zakończyła
+        }else if(CheckingTheResults.checkForDraw(board)){
+            System.out.println("Nastąpił remis");
+            return true;
+        }
+        return false; // Gra trwa
+    }
+    public static boolean checkGameResultComputer(char[][] board, Computer computer) {
+        char currentPlayerFigure = computer.getFigure();
+
+        if (CheckingTheResults.checkForWinRow(board, currentPlayerFigure)
+                || CheckingTheResults.checkForWinColumn(board, currentPlayerFigure)
+                || CheckingTheResults.checkForWinDiagonal(board, currentPlayerFigure)) {
+            System.out.println("Komputer  wygrał!");
+            return true; // Gra się zakończyła
+        }else if(CheckingTheResults.checkForDraw(board)){
+            System.out.println("Nastąpił remis");
+            return true;
         }
         return false; // Gra trwa
     }
